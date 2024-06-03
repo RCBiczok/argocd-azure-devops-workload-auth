@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-dev-pod
+  namespace: argocd
+spec:
+  serviceAccountName: service-account-aks-workload
+  automountServiceAccountToken: true
+  containers:
+  - name: ubuntu
+    image: ubuntu:latest
+    ports:
+    - containerPort: 80
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "2Gi"
